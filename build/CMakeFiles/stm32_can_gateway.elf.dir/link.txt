@@ -1,1 +1,0 @@
-/usr/bin/arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -specs=nano.specs -specs=nosys.specs -Wl,--gc-sections -Wl,-Map=stm32_can_gateway.map CMakeFiles/stm32_can_gateway.elf.dir/src/main.c.obj -o stm32_can_gateway.elf 

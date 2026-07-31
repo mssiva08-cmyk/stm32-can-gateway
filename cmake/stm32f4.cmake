@@ -21,7 +21,7 @@ set(CMAKE_SYSTEM_NAME Generic)
 #   - aarch64  : 64-bit high-performance application chips (Cortex-A for ADAS, Clusters)
 #   - x86_64   : Simulation targets or vehicle server edge environments
 
-set(CMAKE_SYSTEM_PROCESSOR arm)
+set(CMAKE_SYSTEM_PROCESSOR arm)  
 
 
 # --------------------------------------------------------------------
@@ -96,18 +96,31 @@ set(CPU_FLAGS  "-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 set(CMAKE_C_FLAGS_INIT "${CPU_FLAGS}")
 set(CMAKE_CXX_FLAGS_INIT "${CPU_FLAGS}")
 set(CMAKE_ASM_FLAGS_INIT "${CPU_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS_INIT "${CPU_FLAGS} -specs=nano.specs -specs=nosys.specs")
+   
 
 # --------------------------------------------------------------------
 # Search Target Environment Policy
 # --------------------------------------------------------------------
+# PROGRAM: Active build-time helper tools (e.g., Python, Bison, compiler).
+#          Must execute on Host CPU to manufacture the final binary.
+# INCLUDE: Passive header files (.h). Blueprint text pasted into your code.
+# LIBRARY: Passive binary files (.a/.so). Pre-compiled target machine code.
+# PACKAGE: Physical distribution box. Bundles libraries and includes together.
+#
 # Force CMake to find programs on the host, but look for libraries,
 # headers, and packages ONLY within the target toolchain directories.
 # NEVER - Never look into target
 # ONLY - Only look into target
 # BOTH - Look into Host first, if unsuccessful look into target
 
+# Controls find_program(): Finds tools (like compilers) that must run natively on the host PC.
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+
+# Controls find_path() and find_file(): Finds C/C++ header files (.h) for the target hardware.
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+# Controls find_library(): Finds compiled libraries (.a, .so) built for the target hardware.
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+
+# Controls find_package(): Finds CMake dependency configuration modules for the target hardware.
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
